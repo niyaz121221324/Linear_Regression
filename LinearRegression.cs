@@ -23,28 +23,45 @@ namespace LinearRegressionApp.csproj
             return series;
         }
 
-        private Tuple<double, double> GetCoef(double[] x, double[] y)
+        private Tuple<double, double> GetCoef(double[] xVals, double[] yVals)
         {
-            if (x.Length != y.Length)
+            if (xVals.Length != yVals.Length)
                 throw new ArgumentException("Размеры массивов должны совпадать");
 
-            double sumX = 0;
-            double sumY = 0;
-            double sumXY = 0;
-            double sumXX = 0;
+            double sumOfX = 0;
+            double sumOfY = 0;
+            double sumOfXSq = 0;
+            double sumOfYSq = 0;
+            double sumCodeviates = 0;
 
-            for (int i = 0; i < x.Length; i++)
+            for (var i = 0; i < xVals.Length; i++)
             {
-                sumX += x[i];
-                sumY += y[i];
-                sumXX += x[i] * x[i];
-                sumXY += x[i] * y[i];
+                var x = xVals[i];
+                var y = yVals[i];
+                sumCodeviates += x * y;
+                sumOfX += x;
+                sumOfY += y;
+                sumOfXSq += x * x;
+                sumOfYSq += y * y;
             }
 
-            double slope = (x.Length * sumXY - sumX * sumY) / (x.Length * sumXX - sumX * sumX);
-            double intercept = (sumY - slope * sumX) / x.Length;
+            var count = xVals.Length;
+            var ssX = sumOfXSq - ((sumOfX * sumOfX) / count);
+            var ssY = sumOfYSq - ((sumOfY * sumOfY) / count);
 
-            return Tuple.Create(slope, intercept);
+            var rNumerator = (count * sumCodeviates) - (sumOfX * sumOfY);
+            var rDenom = (count * sumOfXSq - (sumOfX * sumOfX)) * (count * sumOfYSq - (sumOfY * sumOfY));
+            var sCo = sumCodeviates - ((sumOfX * sumOfY) / count);
+
+            var meanX = sumOfX / count;
+            var meanY = sumOfY / count;
+            var dblR = rNumerator / Math.Sqrt(rDenom);
+
+            double rSquared = dblR * dblR;
+            double yIntercept = meanY - ((sCo / ssX) * meanX);
+            double slope = sCo / ssX;
+
+            return Tuple.Create(slope, yIntercept);
         }
     }
 }
