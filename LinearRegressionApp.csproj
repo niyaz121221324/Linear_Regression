@@ -79,7 +79,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="LinearRegression.cs" />
+    <Compile Include="LinearRegressionCalculate.cs" />
+    <Compile Include="Model\LinearRegressionModel.cs" />
     <Compile Include="Model\MalCustomer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

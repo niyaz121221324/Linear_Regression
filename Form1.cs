@@ -18,7 +18,7 @@ namespace LinearRegressionApp.csproj
 {
     public partial class Form1 : Form
     {
-        private LinearRegression regression = new LinearRegression();
+        private LinearRegressionCalculate regression = new LinearRegressionCalculate();
 
         public Form1()
         {
@@ -57,31 +57,8 @@ namespace LinearRegressionApp.csproj
 
         private void button1_Click(object sender, EventArgs e)
         {
-            double[] xValues = new double[Convert.ToInt32(countTb.Text)];
-            double[] yValues = new double[Convert.ToInt32(countTb.Text)];
-
-            //using (var reader = new StreamReader("D:/niyaz.projects/LinearRegressionApp.csproj/Resources/Mall_Customers.csv"))
-            //using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            //{
-            //    var records = csv.GetRecords<MyClass>().ToList();
-
-            //    xValues = records.Select(r => r.Column1).ToArray();
-            //    yValues = records.Select(r => r.Column2).ToArray();
-            //}
-
-            int i = 0;
-            using (TextFieldParser parser = new TextFieldParser("D:/niyaz.projects/LinearRegressionApp.csproj/Resources/Mall_Customers.csv"))
-            {
-                parser.TextFieldType = FieldType.Delimited;
-                parser.SetDelimiters(",");
-                while (!parser.EndOfData)
-                {
-                    string[] fields = parser.ReadFields();
-                    xValues[i] = double.Parse(fields[2]);
-                    yValues[i] = double.Parse(fields[4]);
-                    i++;
-                }
-            }
+            double[] xValues = GetArray(10);
+            double[] yValues = GetArray(10);
 
             CreateFunction(regression.GetFunc(xValues, yValues), xValues, yValues);
         }
