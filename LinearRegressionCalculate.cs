@@ -23,7 +23,7 @@ namespace LinearRegressionApp.csproj
                 throw new ArgumentException("Размеры массивов должны совпадать");
 
             Series series = new Series();
-            LinearRegressionModel coef = Fit(x, y);
+            LinearRegressionModel coef = GetCoef(x, y);
 
             for (int i = 0; i < x.Length * y.Length; i++)
                 series.Points.Add(new DataPoint(i, coef.Slope * i + coef.Intercept));
@@ -66,27 +66,6 @@ namespace LinearRegressionApp.csproj
             rSquared = dblR * dblR;
             yIntercept = meanY - ((sCo / ssX) * meanX);
             slope = sCo / ssX;
-
-            return new LinearRegressionModel(slope, yIntercept);
-        }
-
-        static LinearRegressionModel Fit(double[] x, double[] y)
-        {
-            double sumX = 0.0;
-            double sumY = 0.0;
-            double sumXY = 0.0;
-            double sumXX = 0.0;
-
-            for (int i = 0; i < x.Length; i++)
-            {
-                sumX += x[i];
-                sumY += y[i];
-                sumXY += x[i] * y[i];
-                sumXX += x[i] * x[i];
-            }
-
-            slope = (x.Length * sumXY - sumX * sumY) / (x.Length * sumXX - sumX * sumX);
-            yIntercept = (sumY - slope * sumX) / x.Length;
 
             return new LinearRegressionModel(slope, yIntercept);
         }
