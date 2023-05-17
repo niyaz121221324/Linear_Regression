@@ -25,7 +25,7 @@ namespace LinearRegressionApp.csproj
             Series series = new Series();
             LinearRegressionModel coef = GetCoef(x, y);
 
-            for (int i = 0; i < x.Length * y.Length; i++)
+            for (int i = 0; i < x.Length * y.Length * 2; i++)
                 series.Points.Add(new DataPoint(i, coef.Slope * i + coef.Intercept));
 
             return series;

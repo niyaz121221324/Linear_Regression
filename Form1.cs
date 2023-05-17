@@ -19,6 +19,7 @@ namespace LinearRegressionApp.csproj
     public partial class Form1 : Form
     {
         private LinearRegressionCalculate regression = new LinearRegressionCalculate();
+        private CsvParser parser = new CsvParser();
 
         public Form1()
         {
@@ -57,8 +58,10 @@ namespace LinearRegressionApp.csproj
 
         private void button1_Click(object sender, EventArgs e)
         {
-            double[] xValues = GetArray(10);
-            double[] yValues = GetArray(10);
+            double[] xValues = parser.GetDoubleArray(parser.CsvToDataTableParse("avengers.csv"), "Appearances", Convert.ToInt32(countTb.Text));
+            double[] yValues = parser.GetDoubleArray(parser.CsvToDataTableParse("avengers.csv"), "Year", Convert.ToInt32(countTb.Text));
+
+            DataTable list = parser.CsvToDataTableParse("avengers.csv");
 
             CreateFunction(regression.GetFunc(xValues, yValues), xValues, yValues);
         }
