@@ -61,8 +61,6 @@ namespace LinearRegressionApp.csproj
             double[] xValues = parser.GetDoubleArray(parser.CsvToDataTableParse("avengers.csv"), "Appearances", Convert.ToInt32(countTb.Text));
             double[] yValues = parser.GetDoubleArray(parser.CsvToDataTableParse("avengers.csv"), "Year", Convert.ToInt32(countTb.Text));
 
-            DataTable list = parser.CsvToDataTableParse("avengers.csv");
-
             CreateFunction(regression.GetFunc(xValues, yValues), xValues, yValues);
         }
 
